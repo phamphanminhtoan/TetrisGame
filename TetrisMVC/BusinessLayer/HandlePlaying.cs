@@ -24,15 +24,15 @@ namespace TetrisMVC.BusinessLayer
                 }
                 if (full)
                 {
-                    RemoveRow(board);
+                    RemoveRow(board, i);
                     board.Score += 10;
                     board.LineFilled += 1;
                 }
             }
         }
-        private void RemoveRow(Board board)
+        private void RemoveRow(Board board, int row)
         {
-            for (int i = board.Row; i > 2; i--)
+            for (int i = row; i > 2; i--)
             {
                 for (int j = 0; j < board.Col; j++)
                 {

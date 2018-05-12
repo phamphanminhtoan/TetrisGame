@@ -49,8 +49,8 @@ namespace TetrisMVC
         }
         void GameTick(object sender, EventArgs e)
         {
-            Scores.Content = myBoard.getScore().ToString("00000000000000");
-            Lines.Content = myBoard.getLine().ToString("00000000000000");
+            Scores.Content = myBoard.getScore().ToString("0000");
+            Lines.Content = myBoard.getLine().ToString("0000");
             myBoard.CurTetraminoMoveDown();
         }
         private void HandleKeyDown(object sender, KeyEventArgs e)

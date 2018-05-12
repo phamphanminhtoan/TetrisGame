@@ -86,37 +86,37 @@ namespace TetrisMVC.DTO
             }
         }
 
-        private void CheckRow()
-        {
-            bool full;
-            for (int i = row - 1; i > 0; i--)
-            {
-                full = true;
-                for (int j = 0; j < col; j++)
-                {
-                    if (blockControl[j, i].Background == NoBrush)
-                    {
-                        full = false;
-                    }
-                }
-                if (full)
-                {
-                    RemoveRow(i);
-                    score += 10;
-                    lineFilled += 1;
-                }
-            }
-        }
-        private void RemoveRow(int row)
-        {
-            for (int i = row; i > 2; i--)
-            {
-                for (int j = 0; j < col; j++)
-                {
-                    blockControl[j, i].Background = blockControl[j, i - 1].Background;
-                }
-            }
-        }
+        //private void CheckRow()
+        //{
+        //    bool full;
+        //    for (int i = row - 1; i > 0; i--)
+        //    {
+        //        full = true;
+        //        for (int j = 0; j < col; j++)
+        //        {
+        //            if (blockControl[j, i].Background == NoBrush)
+        //            {
+        //                full = false;
+        //            }
+        //        }
+        //        if (full)
+        //        {
+        //            RemoveRow(i);
+        //            score += 10;
+        //            lineFilled += 1;
+        //        }
+        //    }
+        //}
+        //private void RemoveRow(int row)
+        //{
+        //    for (int i = row; i > 2; i--)
+        //    {
+        //        for (int j = 0; j < col; j++)
+        //        {
+        //            blockControl[j, i].Background = blockControl[j, i - 1].Background;
+        //        }
+        //    }
+        //}
 
         public void CurTetraminoMoveLeft()
         {
@@ -197,7 +197,7 @@ namespace TetrisMVC.DTO
             else
             {
                 curTetraminoDraw();
-                CheckRow();
+                handlePlaying.CheckRow(this);
                 curTetramino = new Tetramino();
             }
         }

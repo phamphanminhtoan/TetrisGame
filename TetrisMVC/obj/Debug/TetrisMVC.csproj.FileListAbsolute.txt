@@ -12,3 +12,6 @@ C:\Users\MINHTOAN\Desktop\dealine\pttk\TetrisMVC\TetrisMVC\obj\Debug\TetrisMVC.c
 C:\Users\MINHTOAN\Desktop\dealine\pttk\TetrisMVC\TetrisMVC\obj\Debug\TetrisMVC.csproj.CoreCompileInputs.cache
 C:\Users\MINHTOAN\Desktop\dealine\pttk\TetrisMVC\TetrisMVC\obj\Debug\TetrisMVC.exe
 C:\Users\MINHTOAN\Desktop\dealine\pttk\TetrisMVC\TetrisMVC\obj\Debug\TetrisMVC.pdb
+C:\Users\MINHTOAN\Desktop\dealine\pttk\TetrisMVC\TetrisMVC\obj\Debug\LoginScreen.g.cs
+C:\Users\MINHTOAN\Desktop\dealine\pttk\TetrisMVC\TetrisMVC\obj\Debug\TetrisMVC_MarkupCompile.lref
+C:\Users\MINHTOAN\Desktop\dealine\pttk\TetrisMVC\TetrisMVC\obj\Debug\LoginScreen.baml
