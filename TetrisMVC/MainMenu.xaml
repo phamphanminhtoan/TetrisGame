@@ -1,0 +1,49 @@
+﻿<Window x:Class="TetrisMVC.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TetrisMVC"
+        mc:Ignorable="d"
+        Title="Chọn chế độ - Tetris Game" Height="520" Width="400">
+    <Grid Background="DimGray">
+        <Label x:Name="label" Content="Select level :" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" Height="45" Width="105" FontWeight="Bold" FontSize="18"/>
+        <Button x:Name="button" Content="Start Game" HorizontalAlignment="Left" Margin="127,186,0,0" VerticalAlignment="Top" Width="139" Height="47" FontSize="24" Click="button_Click"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="239,63,0,0" VerticalAlignment="Top" Width="120">
+
+            <ComboBoxItem IsSelected="True">Level 1</ComboBoxItem>
+            <ComboBoxItem>Level 2</ComboBoxItem>
+            <ComboBoxItem>Level 3</ComboBoxItem>
+            <ComboBoxItem>Level 4</ComboBoxItem>
+            <ComboBoxItem>Level 5</ComboBoxItem>
+            <ComboBoxItem>Level 6</ComboBoxItem>
+            <ComboBoxItem>Level 7</ComboBoxItem>
+            <ComboBoxItem>Level 8</ComboBoxItem>
+            <ComboBoxItem>Level 9</ComboBoxItem>
+            <ComboBoxItem>Level 10</ComboBoxItem>
+            <ComboBoxItem>Level 11</ComboBoxItem>
+            <ComboBoxItem>Level 12</ComboBoxItem>
+            <ComboBoxItem>Level 13</ComboBoxItem>
+
+
+        </ComboBox>
+        <Label x:Name="label_Copy" Content="Select Shape Color " HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top" Height="58" Width="177" FontWeight="Bold" FontSize="18"/>
+        <ComboBox x:Name="comboBox_shapeColor" HorizontalAlignment="Left" Margin="239,113,0,0" VerticalAlignment="Top" Width="120">
+
+            <ComboBoxItem IsSelected="True" Content="Mix Color"/>
+            <ComboBoxItem Content="GreenYellow"/>
+            <ComboBoxItem Content="Red"/>
+            <ComboBoxItem Content="Gold"/>
+            <ComboBoxItem Content="Violet"/>
+            <ComboBoxItem Content="DeepSkyBlue"/>
+            <ComboBoxItem Content="Cyan"/>
+            <ComboBoxItem Content="LightSeaGreen"/>
+        </ComboBox>
+        <StackPanel DockPanel.Dock="Right" Width="270" Margin="59,299,63,-73">
+            <Button x:Name="button_Signup" Content="Sign Up" HorizontalAlignment="Left" Margin="68,20,0,0" VerticalAlignment="Top" Width="139" Height="47" FontSize="24" Click="button_Click2"/>
+            <Button x:Name="button_Signin" Content="Sign In" HorizontalAlignment="Left" Margin="68,20,0,0" VerticalAlignment="Top" Width="139" Height="47" FontSize="24" Click="button_Click3"/>
+            <Button x:Name="button_Signout" Content="Sign Out" HorizontalAlignment="Left" Margin="68,20,0,0" VerticalAlignment="Top" Width="139" Height="47" FontSize="24" Click="button_Click4" Visibility="Collapsed"/>
+        </StackPanel>
+        <Button x:Name="button_HighScore" Content="High Score" HorizontalAlignment="Left" Margin="127,252,0,0" VerticalAlignment="Top" Width="139" Height="47" FontSize="24" Click="button_Click5"/>
+    </Grid>
+</Window>

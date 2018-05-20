@@ -1,0 +1,22 @@
+﻿<Window x:Class="TetrisMVC.signUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TetrisMVC"
+        mc:Ignorable="d"
+        Title="Sign up" Height="361.925" Width="381">
+    <Grid Background="DimGray" Margin="0,0,0,-1">
+        <Label x:Name="label" Content="Username" HorizontalAlignment="Left" Margin="23,34,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Label x:Name="label_Copy" Content="Password" HorizontalAlignment="Left" Margin="23,70,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <Label x:Name="label_Copy1" Content="Re-password" HorizontalAlignment="Left" Margin="23,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" RenderTransformOrigin="0.519,1.71"/>
+        <Label x:Name="label_Copy2" Content="Full name" HorizontalAlignment="Left" Margin="23,142,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="20" Margin="150,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="186"/>
+        <PasswordBox x:Name="txtPassword"   HorizontalAlignment="Left" Height="20" Margin="150,78,0,0"  VerticalAlignment="Top" Width="186"/>
+        <PasswordBox x:Name="txtRePassword"  HorizontalAlignment="Left" Height="20" Margin="150,114,0,0" VerticalAlignment="Top" Width="186"/>
+        <TextBox x:Name="txtFullname" HorizontalAlignment="Left" Height="20" Margin="150,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="186"/>
+        <Button x:Name="button" Content="Sign Up" HorizontalAlignment="Left" Margin="58,223,0,0" VerticalAlignment="Top" Width="112" Height="48" Click="button_Click" FontSize="24"/>
+        <Button x:Name="button_mainmenu" Content="Menu" HorizontalAlignment="Left" Margin="209,223,0,0" VerticalAlignment="Top" Width="116" Height="48" Click="button_Click1" FontSize="24"/>
+
+    </Grid>
+</Window>
