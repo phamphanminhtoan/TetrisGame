@@ -31,7 +31,7 @@ namespace TetrisMVC
             this.fullname = fullname;
             string _str = ConfigurationManager.ConnectionStrings["TetrisMVC.Properties.Settings.DataTetrisConnectionString"].ConnectionString;
             SqlConnection connect = new SqlConnection(_str);
-            String _query = "SELECT fullname,score FROM ThanhVien ORDER BY id ASC";
+            String _query = "SELECT fullname,score FROM ThanhVien ORDER BY score DESC";
             SqlCommand command = new SqlCommand(_query, connect);
             SqlDataAdapter sda = new SqlDataAdapter(command);
             DataTable dt = new DataTable("ThanhVien");
