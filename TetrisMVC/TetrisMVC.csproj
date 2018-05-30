@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TetrisMVC</RootNamespace>
     <AssemblyName>TetrisMVC</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,29 +55,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\MainWindowController.cs" />
     <Compile Include="DataTetrisDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataTetrisDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="DTO\User.cs" />
-    <Compile Include="highScore.xaml.cs">
+    <Compile Include="View\highScore.xaml.cs">
       <DependentUpon>highScore.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainMenu.xaml.cs">
+    <Compile Include="View\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="signIn.xaml.cs">
+    <Compile Include="View\signIn.xaml.cs">
       <DependentUpon>signIn.xaml</DependentUpon>
     </Compile>
-    <Compile Include="signUp.xaml.cs">
+    <Compile Include="View\signUp.xaml.cs">
       <DependentUpon>signUp.xaml</DependentUpon>
     </Compile>
-    <Page Include="highScore.xaml">
+    <Page Include="View\highScore.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -86,23 +88,23 @@
     </Compile>
     <Compile Include="BusinessLayer\HandlePlaying.cs" />
     <Compile Include="BusinessLayer\TetraminoMoving.cs" />
-    <Compile Include="Controller\TetrisController.cs" />
+    <Compile Include="Controller\MainMenuController.cs" />
     <Compile Include="DataLayer\DataReader.cs" />
     <Compile Include="DTO\Board.cs" />
     <Compile Include="DTO\Tetramino.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MainMenu.xaml">
+    <Page Include="View\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="signIn.xaml">
+    <Page Include="View\signIn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="signUp.xaml">
+    <Page Include="View\signUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,8 +146,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

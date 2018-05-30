@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TetrisMVC.Controller;
 
 namespace TetrisMVC
 {
@@ -19,8 +20,14 @@ namespace TetrisMVC
     /// </summary>
     public partial class Window1 : Window
     {
-        int id = -1;
-        string fullname = "Guest";
+        
+        public int id = -1;
+        public string fullname = "Guest";
+        public int indexW;
+
+        public delegate void EqualHandler(object sender, EventArgs e);
+        public event EqualHandler Equal;
+
         public Window1()
         {
             InitializeComponent();
@@ -42,25 +49,35 @@ namespace TetrisMVC
             }
         }
 
+        
+
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow(comboBox.SelectedIndex,comboBox_shapeColor.SelectedIndex,id,fullname);
-            this.Close();
-            main.Show();
+            indexW = 1;
+            MainMenuController mainMenuController = new MainMenuController(this);
+            if (this.Equal != null)
+            {
+                this.Equal(this, new EventArgs());
+            }
         }
         private void button_Click2(object sender, RoutedEventArgs e)
         {
-            signUp signup = new signUp();
-            this.Close();
-            signup.Show();
+            indexW = 2;
+            MainMenuController mainMenuController = new MainMenuController(this);
+            if (this.Equal != null)
+            {
+                this.Equal(this, new EventArgs());
+            }
         }
 
         private void button_Click3(object sender, RoutedEventArgs e)
         {
-            signIn signin = new signIn();
-            this.Close();
-            signin.Show();
-
+            indexW = 3;
+            MainMenuController mainMenuController = new MainMenuController(this);
+            if (this.Equal != null)
+            {
+                this.Equal(this, new EventArgs());
+            }
         }
 
         private void button_Click4(object sender, RoutedEventArgs e)
@@ -73,9 +90,12 @@ namespace TetrisMVC
 
         private void button_Click5(object sender, RoutedEventArgs e)
         {
-            highScore bxh = new highScore(id,fullname);
-            this.Close();
-            bxh.Show();
+            indexW = 5;
+            MainMenuController mainMenuController = new MainMenuController(this);
+            if (this.Equal != null)
+            {
+                this.Equal(this, new EventArgs());
+            }
         }
     }
 }

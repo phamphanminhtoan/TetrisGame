@@ -3,18 +3,106 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Shapes;
 using System.Windows;
-using TetrisMVC.DTO;
-using TetrisMVC.BusinessLayer;
-using System.Windows.Threading;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
+using System.Windows.Threading;
+using TetrisMVC.BusinessLayer;
+using TetrisMVC.DataLayer;
+using TetrisMVC.DTO;
 
 namespace TetrisMVC.Controller
 {
-    class TetrisController
+    class MainWindowController
     {
+        public MainWindowController(MainWindow mainWindow)
+        {
+            mainWindow.Equal += (object sender, EventArgs e) =>
+            {
+                this.ShowMainMenu(mainWindow);
+            };   
+        }
+
+        public void HandleKeyPress(string keyString)
+        {
+            if (!timer.IsEnabled) { return; }
+
+            switch (keyString)
+            {
+                case "Up":
+                    rotation += 90;
+                    if (rotation > 270) { rotation = 0; }
+                    shapeRotation(ref rotation);
+                    break;
+                case "Down":
+                    setDownposinc();
+                    break;
+                case "Right":
+                    setKeyright();
+                    break;
+                case "Left":
+                    setKeyleft();
+                    break;
+                default:
+                    break;
+            }
+
+            int result = moveShape(timer);
+            if (result == -1)
+                gameOver(mainWindowControl);
+            if (result == 0)
+            {
+                reset();
+                timer.Start();
+            }
+        }
+
+        public void ShowMainMenu(MainWindow mainWindow)
+        {
+            Window1 win1 = new Window1(mainWindow.id, mainWindow.fullname);
+            mainWindow.Close();
+            win1.Show();
+        }
+
+        public void ShowRestart(MainWindow mainWindow)
+        {
+            reset();
+        }
+
+        public void HandleStartPause(MainWindow mainWindow)
+        {
+            if (isGameOver)
+            {
+                mainWindow.MainGrid.Children.Clear();
+                mainWindow.nextShapeCanvas.Children.Clear();
+                mainWindow.txtfinish.Visibility = Visibility.Collapsed;
+                isGameOver = false;
+            }
+            if (!timer.IsEnabled)
+            {
+                if (!gameActive)
+                {
+                    mainWindow.scoreTxt.Text = "0";
+                    Medthod_inButton();
+                }
+                mainWindow.levelTxt.Text = "Level : " + gameLevel.ToString();
+                timer.Start();
+                mainWindow.startStopBtn.Content = "Pause";
+                mainWindow.restartStopBtn.Visibility = Visibility.Visible;
+                mainWindow.scoreTxt.Visibility = mainWindow.nextTxt.Visibility = mainWindow.restartStopBtn.Visibility = mainWindow.levelTxt.Visibility = Visibility.Visible;
+                gameActive = true;
+            }
+            else
+            {
+                timer.Stop();
+                mainWindow.startStopBtn.Content = "Start";
+                mainWindow.restartStopBtn.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
         private int currentTetrominoWidth;
         private int currentTetrominoHeigth;
         private int currentShapeNumber;
@@ -37,16 +125,135 @@ namespace TetrisMVC.Controller
         TetraminoMoving te_moving;
         Tetramino tetramino;
 
+        private int GAMESPEED = 700;// millisecond
+        private int gameSpeed;
+        private int gameLevel = 1;
+        DispatcherTimer timer;
+        private bool isGameOver = false;
+        private int rotation = 0;
+        private int levelScale = 60;// every 60 second increase level by 1 until 10
+        private double gameSpeedCounter = 0;
+        private bool gameActive = false;
+        private MainWindow mainWindowControl;
 
-        public TetrisController(Board BOARD)
+
+        public MainWindowController(Board BOARD, MainWindow mainWindow, int level)
         {
             this.board = BOARD;
+            mainWindowControl = mainWindow;
+
             tetramino = new Tetramino();
             te_moving = new TetraminoMoving(tetramino);
             shapeRandom = new Random();
             currentShapeNumber = shapeRandom.Next(1, 8);
             nextShapeNumber = shapeRandom.Next(1, 8);
+
+            this.gameSpeed = GAMESPEED;
+            setLevel(level);
+            timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, gameSpeed);
+            timer.Tick += Timer_Tick;
+
+            mainWindow.txtfinish.Visibility = Visibility.Collapsed;
+            mainWindow.scoreTxt.Visibility = mainWindow.nextTxt.Visibility = mainWindow.restartStopBtn.Visibility = mainWindow.levelTxt.Visibility = Visibility.Hidden;
+            startGame(mainWindow);
         }
+
+        public void setLevel(int level)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                if (i == level)
+                {
+                    gameLevel = i + 1;
+                    break;
+                }
+                gameSpeed = gameSpeed - 50;
+            }
+        }
+
+        public void startGame(MainWindow mainWindow)
+        {
+            if (!gameActive)
+            {
+                mainWindow.scoreTxt.Text = "0";
+                Medthod_inButton();
+            }
+            mainWindow.levelTxt.Text = "Level : " + gameLevel.ToString();
+            timer.Start();
+            mainWindow.startStopBtn.Content = "Pause";
+            mainWindow.restartStopBtn.Visibility = Visibility.Visible;
+            mainWindow.scoreTxt.Visibility = mainWindow.nextTxt.Visibility = mainWindow.restartStopBtn.Visibility = mainWindow.levelTxt.Visibility = Visibility.Visible;
+            gameActive = true;
+        }
+
+        private void reset()
+        {
+            resetControl(isGameOver);
+            rotation = 0;
+        }
+
+
+        private void gameOver(MainWindow mainWindow)
+        {
+            saveScore(mainWindow);
+            isGameOver = true;
+            reset();
+            mainWindow.startStopBtn.Content = "Start";
+            mainWindow.restartStopBtn.Visibility = Visibility.Collapsed;
+            gameSpeedCounter = 0;
+            mainWindow.txtfinish.Visibility = Visibility.Visible;
+            gameSpeed = GAMESPEED;
+            gameLevel = 1;
+            gameActive = false;
+            timer.Interval = new TimeSpan(0, 0, 0, 0, gameSpeed);
+        }
+
+        public void saveScore(MainWindow mainWindow)
+        {
+            if (mainWindow.id == -1)
+                return;
+            else
+            {
+                DataReader reader = new DataReader();
+                int userScore = reader.getScore(mainWindow.id);
+                int currentScore = getValueScore();
+                if (currentScore > userScore)
+                    reader.updateScore(mainWindow.id, currentScore);
+            }
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            setDownposinc();
+            int result = moveShape(timer);
+            if (result == -1)
+                gameOver(mainWindowControl);
+            if (result == 0)
+            {
+                reset();
+                timer.Start();
+            }
+            if (gameSpeedCounter >= levelScale)
+            {
+                if (gameSpeed >= 50)
+                {
+                    gameSpeed -= 50;
+                    gameLevel++;
+                    mainWindowControl.levelTxt.Text = "Level : " + gameLevel.ToString();
+                }
+                else { gameSpeed = 50; }
+                timer.Stop();
+                timer.Interval = new TimeSpan(0, 0, 0, 0, gameSpeed);
+                timer.Start();
+                gameSpeedCounter = 0;
+            }
+            gameSpeedCounter += (gameSpeed / 1000f);
+
+        }
+
+        
+
 
         // Hàm tạo 1 khối mới
         private void addShape(int shapeNumber, int _left = 0, int _down = 0)
@@ -120,9 +327,9 @@ namespace TetrisMVC.Controller
                 if (downPos <= 2)
                 {
                     return -1;
-                }   
-                    te_moving.shapeStoped(board.getMainGrid(), downPos);
-                    checkComplete();
+                }
+                te_moving.shapeStoped(board.getMainGrid(), downPos);
+                checkComplete();
                 return 0;
             }
             addShape(currentShapeNumber, leftPos, downPos);
@@ -190,7 +397,7 @@ namespace TetrisMVC.Controller
                 if (squareCount == gridColumn)
                 {
                     deleteLine(row);
-                    board.getScoreTxt().Text = "Your Score: "+getScore().ToString();
+                    board.getScoreTxt().Text = "Your Score: " + getScore().ToString();
                     checkComplete();
                 }
             }
@@ -201,6 +408,8 @@ namespace TetrisMVC.Controller
             gameScore += 10;
             return gameScore;
         }
+
+
         // Hàm xoá dòng đã hoàn thành trên grid
         private void deleteLine(int row)
         {
@@ -230,6 +439,8 @@ namespace TetrisMVC.Controller
         // Xoá khối 
         private void removeShape()
         {
+
+            //error board null
             int index = 0;
             while (index < board.getMainGrid().Children.Count)
             {
@@ -329,7 +540,7 @@ namespace TetrisMVC.Controller
             leftCollided = false;
         }
 
-        public void reset(bool isGameOver)
+        public void resetControl(bool isGameOver)
         {
             downPos = 0;
             leftPos = 3;
@@ -350,27 +561,30 @@ namespace TetrisMVC.Controller
             addShape(currentShapeNumber, leftPos);
         }
 
-        public void gameOver()
-        {
-            rowCount = 0;
-            columnCount = 0;
-            leftPos = 0;
-            nextShapeDrawed = false;
-            currentTetromino = null;
-            currentShapeNumber = shapeRandom.Next(1, 8);
-            nextShapeNumber = shapeRandom.Next(1, 8);
-            gameScore = 0;
-        }
+        //public void gameOver()
+        //{
+        //    rowCount = 0;
+        //    columnCount = 0;
+        //    leftPos = 0;
+        //    nextShapeDrawed = false;
+        //    currentTetromino = null;
+        //    currentShapeNumber = shapeRandom.Next(1, 8);
+        //    nextShapeNumber = shapeRandom.Next(1, 8);
+        //    gameScore = 0;
+        //}
+
+
         public void reStart()
         {
             gameScore = 0;
             board.getScoreTxt().Text = "Your Score : 0";
-        }    
+        }
 
         public int getValueScore()
         {
             return gameScore;
         }
+
         public Color handleColor(int color, int shapeNumber)
         {
             if (color == 1)
@@ -393,4 +607,3 @@ namespace TetrisMVC.Controller
 
     }
 }
-
