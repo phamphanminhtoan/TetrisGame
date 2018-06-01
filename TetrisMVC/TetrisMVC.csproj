@@ -55,7 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\HighScoreController.cs" />
     <Compile Include="Controller\MainWindowController.cs" />
+    <Compile Include="Controller\signInController.cs" />
+    <Compile Include="Controller\signUpController.cs" />
     <Compile Include="DataTetrisDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using TetrisMVC.Controller;
 
 namespace TetrisMVC
 {
@@ -22,29 +23,27 @@ namespace TetrisMVC
     /// </summary>
     public partial class highScore : Window
     {
-        int id;
-        string fullname;
+        public delegate void EqualHandler(object sender, EventArgs e);
+        public event EqualHandler Equal;
+
+        HighScoreController highScoreController = new HighScoreController();
+        public int id;
+        public string fullname;
         public highScore(int id , string fullname)
         {
             InitializeComponent();
             this.id = id;
             this.fullname = fullname;
-            string _str = ConfigurationManager.ConnectionStrings["TetrisMVC.Properties.Settings.DataTetrisConnectionString"].ConnectionString;
-            SqlConnection connect = new SqlConnection(_str);
-            String _query = "SELECT fullname,score FROM ThanhVien ORDER BY score DESC";
-            SqlCommand command = new SqlCommand(_query, connect);
-            SqlDataAdapter sda = new SqlDataAdapter(command);
-            DataTable dt = new DataTable("ThanhVien");
-            sda.Fill(dt);
-            dataGrid.ItemsSource = dt.DefaultView;
+            highScoreController.SetDataTable(this);
         }
-    
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            Window1 mainmenu = new Window1(id, fullname);
-            this.Close();
-            mainmenu.Show();
+            highScoreController.ShowMainMenu(this);
+            if (this.Equal != null)
+            {
+                this.Equal(this, new EventArgs());
+            }
         }
     }
 }
