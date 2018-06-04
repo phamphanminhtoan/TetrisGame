@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TetrisMVC.DTO;
-using TetrisMVC.DataLayer;
 using TetrisMVC.Controller;
 
 namespace TetrisMVC

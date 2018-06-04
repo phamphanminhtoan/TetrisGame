@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using TetrisMVC.DTO;
 using TetrisMVC.Controller;
-using TetrisMVC.DataLayer;
 
 namespace TetrisMVC
 {

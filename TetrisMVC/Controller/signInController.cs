@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TetrisMVC.DataLayer;
+using TetrisMVC.TetrisService;
 
 namespace TetrisMVC.Controller
 {
@@ -12,7 +12,7 @@ namespace TetrisMVC.Controller
     {
         public void HandleSignIn(signIn signIn)
         {
-            DataReader reader = new DataReader();
+            UserServiceSoapClient reader = new UserServiceSoapClient();
             if (!reader.login(signIn.txtUsername.Text, signIn.txtPassword.Password.ToString()))
             {
                 signIn.fullname = reader.getfullname(signIn.txtUsername.Text, signIn.txtPassword.Password.ToString());
@@ -24,6 +24,13 @@ namespace TetrisMVC.Controller
             }
             else
                 MessageBox.Show("Đăng nhập thất bại");
+        }
+
+        public void HandleBack(signIn signIn)
+        {
+            Window1 mainWindow = new Window1();
+            signIn.Close();
+            mainWindow.Show();
         }
     }
 }

@@ -37,6 +37,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +57,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Connected Services\TetrisService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Controller\HighScoreController.cs" />
     <Compile Include="Controller\MainWindowController.cs" />
     <Compile Include="Controller\signInController.cs" />
@@ -64,7 +71,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataTetrisDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DTO\User.cs" />
     <Compile Include="View\highScore.xaml.cs">
       <DependentUpon>highScore.xaml</DependentUpon>
     </Compile>
@@ -92,7 +98,6 @@
     <Compile Include="BusinessLayer\HandlePlaying.cs" />
     <Compile Include="BusinessLayer\TetraminoMoving.cs" />
     <Compile Include="Controller\MainMenuController.cs" />
-    <Compile Include="DataLayer\DataReader.cs" />
     <Compile Include="DTO\Board.cs" />
     <Compile Include="DTO\Tetramino.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
@@ -130,6 +135,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\TetrisService\TetrisMVC.TetrisService.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TetrisService\UserService.wsdl" />
     <None Include="DataTetrisDataSet.xsc">
       <DependentUpon>DataTetrisDataSet.xsd</DependentUpon>
     </None>
@@ -141,6 +150,7 @@
     <None Include="DataTetrisDataSet.xss">
       <DependentUpon>DataTetrisDataSet.xsd</DependentUpon>
     </None>
+    <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -149,6 +159,29 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataLayer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\TetrisService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TetrisService\UserService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TetrisService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TetrisService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\TetrisService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

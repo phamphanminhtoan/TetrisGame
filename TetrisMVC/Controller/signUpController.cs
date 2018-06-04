@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TetrisMVC.DataLayer;
 using TetrisMVC.DTO;
+using TetrisMVC.TetrisService;
 
 namespace TetrisMVC.Controller
 {
@@ -16,12 +16,10 @@ namespace TetrisMVC.Controller
         {
             if (checkInput(signUp))
             {
-                User newuser = new User();
-                DataReader reader = new DataReader();
-                newuser.setUsername(signUp.txtUsername.Text);
-                newuser.setPassword(signUp.txtPassword.Password.ToString());
-                newuser.setFullname(signUp.txtFullname.Text);
-                newuser.setScore(0);
+                
+                UserServiceSoapClient reader = new UserServiceSoapClient();
+                User newuser = reader.setSignUp(signUp.txtUsername.Text, signUp.txtPassword.Password.ToString(), signUp.txtFullname.Text, 0);
+                
                 if (reader.checkTV(signUp.txtUsername.Text))
                 {
                     if (reader.insertTV(newuser))

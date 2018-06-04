@@ -10,8 +10,8 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using TetrisMVC.BusinessLayer;
-using TetrisMVC.DataLayer;
 using TetrisMVC.DTO;
+using TetrisMVC.TetrisService;
 
 namespace TetrisMVC.Controller
 {
@@ -215,7 +215,7 @@ namespace TetrisMVC.Controller
                 return;
             else
             {
-                DataReader reader = new DataReader();
+                UserServiceSoapClient reader = new UserServiceSoapClient();
                 int userScore = reader.getScore(mainWindow.id);
                 int currentScore = getValueScore();
                 if (currentScore > userScore)

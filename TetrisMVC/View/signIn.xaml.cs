@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TetrisMVC.Controller;
-using TetrisMVC.DataLayer;
 
 namespace TetrisMVC
 {
@@ -35,6 +34,15 @@ namespace TetrisMVC
         private void button_Click(object sender, RoutedEventArgs e)
         {
             signInController.HandleSignIn(this);
+            if (this.Equal != null)
+            {
+                this.Equal(this, new EventArgs());
+            }
+        }
+
+        private void buttonBack_Click(object sender, RoutedEventArgs e)
+        {
+            signInController.HandleBack(this);
             if (this.Equal != null)
             {
                 this.Equal(this, new EventArgs());
